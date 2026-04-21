@@ -16,212 +16,402 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --blue: #1A5CFF;
+            --blue-glow: #1A5CFF30;
+            --blue-muted: #1A5CFF18;
+            --navy: #0A1628;
+            --navy-light: #0D1B30;
+            --card: #0F1D34;
+            --border: #1A2A4466;
+            --border-hover: #1A5CFF44;
+            --white: #FFFFFF;
+            --ice: #E8F0FE;
+            --frost: #B8D4FF;
+            --steel: #64748B;
+            --green: #00D68F;
+            --font-heading: 'Sora', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0A1628;
-            color: #E8F0FE;
+            font-family: var(--font-body);
+            background: var(--navy);
+            color: var(--ice);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ─── Subtle grid background ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(26, 92, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 92, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── Ambient glow spots ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, #1A5CFF08 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrap {
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
+
+        /* ─── Header ─── */
         header {
             width: 100%;
-            padding: 60px 20px;
+            padding: 72px 24px 56px;
             text-align: center;
-            background: linear-gradient(180deg, #0F2040 0%, #0A1628 100%);
         }
+
         .logo-img {
-            max-width: 400px;
-            width: 80%;
+            max-width: 360px;
+            width: 72%;
             height: auto;
             mix-blend-mode: lighten;
+            filter: drop-shadow(0 0 48px #1A5CFF12);
+            animation: fadeIn 0.9s ease-out;
         }
+
         .tagline {
-            margin-top: 32px;
-            font-size: 1.1rem;
-            color: #64748B;
-            font-weight: 400;
+            margin-top: 24px;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--steel);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            animation: fadeUp 0.8s ease-out 0.25s both;
         }
+
+        /* ─── Main ─── */
         main {
-            max-width: 700px;
+            max-width: 740px;
             width: 100%;
-            padding: 40px 20px;
-            text-align: center;
+            padding: 20px 24px 72px;
         }
-        .section-title {
-            font-size: 1.4rem;
+
+        /* ─── Section labels ─── */
+        .section-label {
+            font-family: var(--font-heading);
+            font-size: 0.78rem;
             font-weight: 600;
-            margin-bottom: 16px;
-            color: #FFFFFF;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
         }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--blue-glow);
+        }
+
+        /* ─── Games grid ─── */
         .games-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
             justify-content: center;
-            margin-bottom: 48px;
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.4s both;
         }
+
         .game-card {
-            background: #111E33;
-            border: 1px solid #1A2A44;
-            border-radius: 12px;
-            padding: 32px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 24px 28px;
             width: 280px;
-            transition: border-color 0.2s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.3s ease,
+                        box-shadow 0.3s ease;
         }
-        .game-card:hover { border-color: #1A5CFF; }
+
+        /* Top accent line */
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 40px rgba(10, 22, 40, 0.6), 0 0 0 1px #1A5CFF18;
+        }
+
+        .game-card:hover::before { opacity: 1; }
+
         .game-icon {
             width: 120px;
             height: 120px;
-            border-radius: 24px;
-            margin-bottom: 16px;
+            border-radius: 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        .game-card:hover .game-icon { transform: scale(1.03); }
+
         .game-card h3 {
-            font-size: 1.2rem;
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 600;
             margin-bottom: 8px;
-            color: #FFFFFF;
+            color: var(--white);
         }
+
         .game-card p {
             font-size: 0.9rem;
-            color: #64748B;
-            line-height: 1.5;
+            color: var(--steel);
+            line-height: 1.6;
         }
+
         .badge {
             display: inline-block;
-            margin-top: 12px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            margin-top: 14px;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-size: 0.68rem;
             font-weight: 600;
-            background: #1A5CFF22;
-            color: #1A5CFF;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: var(--blue-muted);
+            color: var(--frost);
+            border: 1px solid #1A5CFF20;
         }
+
+        /* ─── About ─── */
+        .about-block {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.55s both;
+        }
+
         .about {
-            margin-bottom: 48px;
-            padding: 32px 24px;
-            background: #111E33;
-            border-radius: 12px;
-            border: 1px solid #1A2A44;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px;
             text-align: left;
         }
+
         .about p {
-            font-size: 0.95rem;
-            color: #B8D4FF;
-            line-height: 1.7;
+            font-size: 0.93rem;
+            color: var(--frost);
+            line-height: 1.8;
             margin-bottom: 16px;
         }
+
         .about p:last-child { margin-bottom: 0; }
+
+        /* ─── Contact ─── */
+        .contact-block {
+            animation: fadeUp 0.7s ease-out 0.65s both;
+        }
+
         .contact {
-            margin-top: 32px;
-            padding: 24px;
-            background: #111E33;
-            border-radius: 12px;
-            border: 1px solid #1A2A44;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px;
+            text-align: center;
         }
-        .contact a {
-            color: #1A5CFF;
+
+        .email-link {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--frost);
             text-decoration: none;
+            transition: color 0.25s;
         }
-        .contact a:hover { text-decoration: underline; }
+
+        .email-link:hover { color: var(--blue); }
+
+        /* ─── Social links ─── */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 12px;
+            gap: 12px;
+            margin-top: 22px;
         }
+
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 44px;
             height: 44px;
-            border-radius: 50%;
-            background: #1A2A44;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .social-links a:hover {
-            background: #1A5CFF;
-            transform: scale(1.1);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+            background: var(--blue-muted);
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 16px #1A5CFF14;
+        }
+
+        .social-links a:hover svg { fill: var(--blue); }
+
         .social-links svg {
-            width: 22px;
-            height: 22px;
-            fill: #E8F0FE;
+            width: 18px;
+            height: 18px;
+            fill: var(--steel);
+            transition: fill 0.25s ease;
         }
+
+        /* ─── Footer ─── */
         footer {
             margin-top: auto;
-            padding: 32px 20px;
+            padding: 36px 24px;
             text-align: center;
-            font-size: 0.85rem;
-            color: #64748B;
+            font-size: 0.8rem;
+            color: var(--steel);
             width: 100%;
-            border-top: 1px solid #1A2A44;
+            border-top: 1px solid var(--border);
         }
+
         footer a {
-            color: #64748B;
+            color: var(--steel);
             text-decoration: none;
             margin: 0 12px;
+            transition: color 0.2s;
         }
-        footer a:hover { color: #B8D4FF; }
+
+        footer a:hover { color: var(--frost); }
         .footer-links { margin-bottom: 12px; }
+
+        /* ─── Animations ─── */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 480px) {
+            header { padding: 52px 20px 40px; }
+            .logo-img { max-width: 260px; }
+            .tagline { font-size: 0.78rem; letter-spacing: 0.1em; }
+            main { padding: 12px 16px 48px; }
+            .game-card { width: 100%; }
+            .about, .contact { padding: 24px 20px; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="FinPixel Games" class="logo-img">
-        <p class="tagline">Games & Digital Tools from Finland</p>
-    </header>
+    <div class="page-wrap">
+        <header>
+            <img src="logo.png" alt="FinPixel Games" class="logo-img">
+            <p class="tagline">Games & Digital Tools from Finland</p>
+        </header>
 
-    <main>
-        <h2 class="section-title">Our Games</h2>
-        <div class="games-grid">
-            <div class="game-card">
-                <img src="beyond-orbit-icon.png" alt="Beyond Orbit" class="game-icon">
-                <h3>Beyond Orbit</h3>
-                <p>Explore a procedurally generated universe. Trade, fight, and survive in deep space.</p>
-                <span class="badge">Coming Soon</span>
+        <main>
+            <div class="section-label">Our Games</div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <img src="beyond-orbit-icon.png" alt="Beyond Orbit" class="game-icon">
+                    <h3>Beyond Orbit</h3>
+                    <p>Explore a procedurally generated universe. Trade, fight, and survive in deep space.</p>
+                    <span class="badge">Coming Soon</span>
+                </div>
             </div>
-        </div>
 
-        <h2 class="section-title">About</h2>
-        <div class="about">
-            <p>FinPixel Games is an indie game studio from Finland, founded with a simple mission: to create high-quality games and digital tools — from Finland to the world.</p>
-            <p>We are an AI-native studio, meaning artificial intelligence is integrated into every step of our workflow, from game design and development to art and audio. This allows us to move fast and punch above our weight, delivering polished experiences that would traditionally require a much larger team.</p>
-            <p>Our focus is on mobile games that are fun, accessible, and built with care. We believe in quality over quantity — every product we release is something we'd want to play ourselves.</p>
-            <p>Our first title, Beyond Orbit, is a space adventure coming soon to Google Play.</p>
-        </div>
-
-        <div class="contact">
-            <h2 class="section-title">Contact</h2>
-            <p><a href="mailto:finpixelgames@gmail.com">finpixelgames@gmail.com</a></p>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@finpixelgames" target="_blank" aria-label="YouTube">
-                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                </a>
-                <a href="https://x.com/finpixelgames" target="_blank" aria-label="X">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://instagram.com/finpixelgames" target="_blank" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                </a>
-                <a href="https://tiktok.com/@finpixelgames" target="_blank" aria-label="TikTok">
-                    <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                </a>
+            <div class="about-block">
+                <div class="section-label">About</div>
+                <div class="about">
+                    <p>FinPixel Games is an indie game studio from Finland, founded with a simple mission: to create high-quality games and digital tools — from Finland to the world.</p>
+                    <p>We are an AI-native studio, meaning artificial intelligence is integrated into every step of our workflow, from game design and development to art and audio. This allows us to move fast and punch above our weight, delivering polished experiences that would traditionally require a much larger team.</p>
+                    <p>Our focus is on mobile games that are fun, accessible, and built with care. We believe in quality over quantity — every product we release is something we'd want to play ourselves.</p>
+                    <p>Our first title, Beyond Orbit, is a space adventure coming soon to Google Play.</p>
+                </div>
             </div>
-        </div>
-    </main>
 
-    <footer>
-        <div class="footer-links">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms-of-service.html">Terms of Service</a>
-        </div>
-        <p>&copy; 2026 FinPixel Games. All rights reserved.</p>
-    </footer>
+            <div class="contact-block">
+                <div class="section-label">Contact</div>
+                <div class="contact">
+                    <a href="mailto:finpixelgames@gmail.com" class="email-link">finpixelgames@gmail.com</a>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@finpixelgames" target="_blank" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="https://x.com/finpixelgames" target="_blank" aria-label="X">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="https://instagram.com/finpixelgames" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                        </a>
+                        <a href="https://tiktok.com/@finpixelgames" target="_blank" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="/terms-of-service.html">Terms of Service</a>
+            </div>
+            <p>&copy; 2026 FinPixel Games. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
