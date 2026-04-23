@@ -112,11 +112,55 @@
             animation: fadeUp 0.7s ease-out 0.15s both;
         }
 
-        .feature-graphic {
+        .hero-banner {
+            position: relative;
             width: 100%;
             border-radius: 16px;
             border: 1px solid var(--border);
             box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px #1A5CFF08;
+            overflow: hidden;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            display: block;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 24px 36px;
+            background: linear-gradient(90deg, transparent 0%, rgba(6, 10, 22, 0.65) 30%, rgba(6, 10, 22, 0.8) 100%);
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-text .hero-tagline {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--frost);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text .badge {
+            text-shadow: none;
         }
 
         /* ─── Main content ─── */
@@ -124,30 +168,6 @@
             max-width: 900px;
             width: 100%;
             padding: 0 24px 72px;
-        }
-
-        /* ─── Title block ─── */
-        .title-block {
-            text-align: center;
-            margin-bottom: 48px;
-            animation: fadeUp 0.7s ease-out 0.25s both;
-        }
-
-        .title-block h1 {
-            font-family: var(--font-heading);
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-        }
-
-        .title-block .subtitle {
-            font-size: 1.1rem;
-            color: var(--frost);
-            line-height: 1.6;
-            max-width: 520px;
-            margin: 0 auto 18px;
         }
 
         .badge {
@@ -420,8 +440,10 @@
 
         /* ─── Responsive ─── */
         @media (max-width: 640px) {
-            .title-block h1 { font-size: 1.8rem; }
-            .title-block .subtitle { font-size: 1rem; }
+            .hero-text { width: 55%; padding: 16px 20px; }
+            .hero-text h1 { font-size: 1.4rem; }
+            .hero-text .hero-tagline { font-size: 0.8rem; margin-bottom: 10px; }
+            .hero-text .badge { font-size: 0.6rem; padding: 3px 10px; }
             .phone-frame { width: 150px; border-radius: 20px; padding: 6px; }
             .phone-frame img { border-radius: 14px; }
             .features-grid { grid-template-columns: 1fr; }
@@ -436,7 +458,10 @@
             .nav-header { padding: 20px 16px; }
             .nav-logo { height: 28px; }
             .hero { padding: 0 16px; margin-bottom: 36px; }
-            .feature-graphic { border-radius: 12px; }
+            .hero-banner { border-radius: 12px; }
+            .hero-text { width: 58%; padding: 12px 14px; }
+            .hero-text h1 { font-size: 1.1rem; }
+            .hero-text .hero-tagline { font-size: 0.7rem; margin-bottom: 8px; }
             main { padding: 0 16px 48px; }
             .phone-frame { width: 140px; border-radius: 18px; padding: 5px; }
             .phone-frame img { border-radius: 13px; }
@@ -452,15 +477,17 @@
         </nav>
 
         <div class="hero">
-            <img src="beyond-orbit/feature_graphic.png" alt="Beyond Orbit — Explore. Trade. Fight. Survive." class="feature-graphic">
+            <div class="hero-banner">
+                <img src="beyond-orbit/feature_graphic.png" alt="Beyond Orbit">
+                <div class="hero-text">
+                    <h1>Beyond Orbit</h1>
+                    <p class="hero-tagline">Explore an infinite universe. Trade, fight, and survive among the stars.</p>
+                    <span class="badge">Coming Soon</span>
+                </div>
+            </div>
         </div>
 
         <main>
-            <div class="title-block">
-                <h1>Beyond Orbit</h1>
-                <p class="subtitle">Explore an infinite universe. Trade, fight, and survive among the stars.</p>
-                <span class="badge">Coming Soon</span>
-            </div>
 
             <!-- Screenshots -->
             <div class="screenshots-section">
