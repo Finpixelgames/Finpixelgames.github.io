@@ -202,26 +202,60 @@
             animation: fadeUp 0.7s ease-out 0.35s both;
         }
 
+        .carousel-wrapper {
+            position: relative;
+        }
+
         .screenshot-track {
             display: flex;
             gap: 20px;
             overflow-x: auto;
             padding: 8px 4px 24px;
             scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: #1A5CFF30 transparent;
+            scrollbar-width: none;
             cursor: grab;
         }
 
         .screenshot-track:active { cursor: grabbing; }
+        .screenshot-track::-webkit-scrollbar { display: none; }
 
-        .screenshot-track::-webkit-scrollbar { height: 6px; }
-        .screenshot-track::-webkit-scrollbar-track { background: transparent; }
-        .screenshot-track::-webkit-scrollbar-thumb {
-            background: #1A5CFF30;
-            border-radius: 3px;
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-60%);
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0.85;
         }
+
+        .carousel-btn:hover {
+            background: var(--blue-muted);
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 20px rgba(26, 92, 255, 0.15);
+            opacity: 1;
+        }
+
+        .carousel-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--frost);
+        }
+
+        .carousel-btn.prev { left: -16px; }
+        .carousel-btn.next { right: -16px; }
+
+        .carousel-btn.hidden { opacity: 0; pointer-events: none; }
 
         .phone-frame {
             flex-shrink: 0;
@@ -554,6 +588,13 @@
             <!-- Screenshots -->
             <div class="screenshots-section">
                 <div class="section-label">Images</div>
+                <div class="carousel-wrapper">
+                <button class="carousel-btn prev hidden" id="carouselPrev" aria-label="Previous">
+                    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="carousel-btn next" id="carouselNext" aria-label="Next">
+                    <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
                 <div class="screenshot-track" id="screenshotTrack">
                     <div class="phone-frame"><img src="beyond-orbit/01_menu.jpg" alt="Main menu" loading="lazy"></div>
                     <div class="phone-frame"><img src="beyond-orbit/02_customize.jpg" alt="Ship customization" loading="lazy"></div>
@@ -564,6 +605,7 @@
                     <div class="phone-frame"><img src="beyond-orbit/08_boss.jpg" alt="Boss battle" loading="lazy"></div>
                     <div class="phone-frame"><img src="beyond-orbit/09_laser.jpg" alt="Laser weapon" loading="lazy"></div>
                     <div class="phone-frame"><img src="beyond-orbit/10_explosion.jpg" alt="Explosion" loading="lazy"></div>
+                </div>
                 </div>
             </div>
 
@@ -652,6 +694,8 @@
     <script>
         /* ─── Drag-to-scroll for screenshot carousel ─── */
         const track = document.getElementById('screenshotTrack');
+        const prevBtn = document.getElementById('carouselPrev');
+        const nextBtn = document.getElementById('carouselNext');
         let isDragging = false;
         let hasDragged = false;
         let startX, scrollLeft;
@@ -661,17 +705,20 @@
             hasDragged = false;
             startX = e.pageX - track.offsetLeft;
             scrollLeft = track.scrollLeft;
+            track.style.scrollBehavior = 'auto';
             track.style.cursor = 'grabbing';
         });
 
         track.addEventListener('mouseleave', () => {
             isDragging = false;
             track.style.cursor = 'grab';
+            track.style.scrollBehavior = 'smooth';
         });
 
         track.addEventListener('mouseup', () => {
             isDragging = false;
             track.style.cursor = 'grab';
+            track.style.scrollBehavior = 'smooth';
         });
 
         track.addEventListener('mousemove', (e) => {
@@ -682,6 +729,26 @@
             if (Math.abs(walk) > 5) hasDragged = true;
             track.scrollLeft = scrollLeft - walk;
         });
+
+        /* ─── Carousel arrow buttons ─── */
+        const scrollAmount = 200;
+
+        function updateArrows() {
+            prevBtn.classList.toggle('hidden', track.scrollLeft <= 5);
+            nextBtn.classList.toggle('hidden', track.scrollLeft >= track.scrollWidth - track.clientWidth - 5);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            track.scrollLeft -= scrollAmount;
+        });
+
+        nextBtn.addEventListener('click', () => {
+            track.scrollLeft += scrollAmount;
+        });
+
+        track.addEventListener('scroll', updateArrows);
+        window.addEventListener('resize', updateArrows);
+        updateArrows();
 
         /* ─── Lightbox ─── */
         const lightbox = document.getElementById('lightbox');
