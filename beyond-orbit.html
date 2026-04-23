@@ -126,41 +126,73 @@
             display: block;
         }
 
+        /* Cover the original baked-in text with a gradient overlay */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                rgba(6, 10, 22, 0.7) 0%,
+                rgba(6, 10, 22, 0.85) 35%,
+                rgba(6, 10, 22, 0.6) 55%,
+                rgba(6, 10, 22, 0.3) 75%,
+                transparent 100%);
+        }
+
         .hero-text {
             position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
-            width: 50%;
+            width: 42%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: flex-end;
             padding: 24px 36px;
-            background: linear-gradient(90deg, transparent 0%, rgba(6, 10, 22, 0.65) 30%, rgba(6, 10, 22, 0.8) 100%);
+            text-align: right;
         }
 
-        .hero-text h1 {
+        .hero-text h2 {
             font-family: var(--font-heading);
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--white);
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+            margin-bottom: 10px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
         }
 
-        .hero-text .hero-tagline {
+        .hero-text .hero-sub {
             font-family: var(--font-body);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            color: var(--frost);
+            letter-spacing: 0.06em;
+            text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ─── Title block below banner ─── */
+        .title-block {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeUp 0.7s ease-out 0.25s both;
+        }
+
+        .title-block h1 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .title-block .subtitle {
+            font-size: 1.1rem;
             color: var(--frost);
             line-height: 1.6;
-            margin-bottom: 16px;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-text .badge {
-            text-shadow: none;
+            max-width: 520px;
+            margin: 0 auto 18px;
         }
 
         /* ─── Main content ─── */
@@ -440,10 +472,11 @@
 
         /* ─── Responsive ─── */
         @media (max-width: 640px) {
-            .hero-text { width: 55%; padding: 16px 20px; }
-            .hero-text h1 { font-size: 1.4rem; }
-            .hero-text .hero-tagline { font-size: 0.8rem; margin-bottom: 10px; }
-            .hero-text .badge { font-size: 0.6rem; padding: 3px 10px; }
+            .title-block h1 { font-size: 1.8rem; }
+            .title-block .subtitle { font-size: 1rem; }
+            .hero-text { width: 50%; padding: 16px 20px; }
+            .hero-text h2 { font-size: 1.3rem; }
+            .hero-text .hero-sub { font-size: 0.7rem; }
             .phone-frame { width: 150px; border-radius: 20px; padding: 6px; }
             .phone-frame img { border-radius: 14px; }
             .features-grid { grid-template-columns: 1fr; }
@@ -459,9 +492,9 @@
             .nav-logo { height: 28px; }
             .hero { padding: 0 16px; margin-bottom: 36px; }
             .hero-banner { border-radius: 12px; }
-            .hero-text { width: 58%; padding: 12px 14px; }
-            .hero-text h1 { font-size: 1.1rem; }
-            .hero-text .hero-tagline { font-size: 0.7rem; margin-bottom: 8px; }
+            .hero-text { width: 55%; padding: 12px 14px; }
+            .hero-text h2 { font-size: 1rem; }
+            .hero-text .hero-sub { font-size: 0.6rem; }
             main { padding: 0 16px 48px; }
             .phone-frame { width: 140px; border-radius: 18px; padding: 5px; }
             .phone-frame img { border-radius: 13px; }
@@ -479,15 +512,20 @@
         <div class="hero">
             <div class="hero-banner">
                 <img src="beyond-orbit/feature_graphic.png" alt="Beyond Orbit">
+                <div class="hero-overlay"></div>
                 <div class="hero-text">
-                    <h1>Beyond Orbit</h1>
-                    <p class="hero-tagline">Explore an infinite universe. Trade, fight, and survive among the stars.</p>
-                    <span class="badge">Coming Soon</span>
+                    <h2>Beyond Orbit</h2>
+                    <p class="hero-sub">Explore. Trade. Fight. Survive.</p>
                 </div>
             </div>
         </div>
 
         <main>
+            <div class="title-block">
+                <h1>Beyond Orbit</h1>
+                <p class="subtitle">Explore an infinite universe. Trade, fight, and survive among the stars.</p>
+                <span class="badge">Coming Soon</span>
+            </div>
 
             <!-- Screenshots -->
             <div class="screenshots-section">
