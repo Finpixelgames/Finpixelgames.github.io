@@ -236,6 +236,10 @@
                         box-shadow 0.3s ease;
         }
 
+        .phone-frame {
+            cursor: pointer;
+        }
+
         .phone-frame:hover {
             transform: translateY(-4px);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px #1A5CFF22;
@@ -246,6 +250,81 @@
             height: auto;
             border-radius: 16px;
             display: block;
+        }
+
+        /* ─── Lightbox ─── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(4, 8, 16, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            border-radius: 20px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+            animation: lightboxIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+        .lightbox-close svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--ice);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-nav:hover { background: rgba(255, 255, 255, 0.2); }
+        .lightbox-nav svg { width: 22px; height: 22px; fill: var(--ice); }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
+
+        @keyframes lightboxIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         /* ─── Description ─── */
@@ -474,7 +553,7 @@
 
             <!-- Screenshots -->
             <div class="screenshots-section">
-                <div class="section-label">Screenshots</div>
+                <div class="section-label">Images</div>
                 <div class="screenshot-track" id="screenshotTrack">
                     <div class="phone-frame"><img src="beyond-orbit/01_menu.jpg" alt="Main menu" loading="lazy"></div>
                     <div class="phone-frame"><img src="beyond-orbit/02_customize.jpg" alt="Ship customization" loading="lazy"></div>
@@ -547,6 +626,20 @@
             </a>
         </main>
 
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <img id="lightboxImg" src="" alt="">
+            <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+
         <footer>
             <div class="footer-links">
                 <a href="privacy-policy.html">Privacy Policy</a>
@@ -560,10 +653,12 @@
         /* ─── Drag-to-scroll for screenshot carousel ─── */
         const track = document.getElementById('screenshotTrack');
         let isDragging = false;
+        let hasDragged = false;
         let startX, scrollLeft;
 
         track.addEventListener('mousedown', (e) => {
             isDragging = true;
+            hasDragged = false;
             startX = e.pageX - track.offsetLeft;
             scrollLeft = track.scrollLeft;
             track.style.cursor = 'grabbing';
@@ -584,7 +679,66 @@
             e.preventDefault();
             const x = e.pageX - track.offsetLeft;
             const walk = (x - startX) * 1.5;
+            if (Math.abs(walk) > 5) hasDragged = true;
             track.scrollLeft = scrollLeft - walk;
+        });
+
+        /* ─── Lightbox ─── */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const frames = document.querySelectorAll('.phone-frame');
+        const images = Array.from(frames).map(f => f.querySelector('img').src);
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = images[index];
+            lightboxImg.alt = frames[index].querySelector('img').alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigate(dir) {
+            currentIndex = (currentIndex + dir + images.length) % images.length;
+            lightboxImg.src = images[currentIndex];
+            lightboxImg.alt = frames[currentIndex].querySelector('img').alt;
+        }
+
+        frames.forEach((frame, i) => {
+            frame.addEventListener('click', () => {
+                if (!hasDragged) openLightbox(i);
+            });
+        });
+
+        document.getElementById('lightboxClose').addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeLightbox();
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigate(-1);
+        });
+
+        document.getElementById('lightboxNext').addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigate(1);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
         });
     </script>
 </body>
