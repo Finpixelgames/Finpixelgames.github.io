@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Orbit — FinPixel Games</title>
+    <meta name="description" content="Explore an infinite universe. Trade, fight, and survive among the stars. Beyond Orbit is an action space game by FinPixel Games.">
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <meta property="og:title" content="Beyond Orbit — FinPixel Games">
+    <meta property="og:description" content="Explore an infinite universe. Trade, fight, and survive among the stars.">
+    <meta property="og:image" content="https://finpixelgames.github.io/beyond-orbit/feature_graphic.png">
+    <meta property="og:url" content="https://finpixelgames.github.io/beyond-orbit.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --blue: #1A5CFF;
+            --blue-glow: #1A5CFF30;
+            --blue-muted: #1A5CFF18;
+            --navy: #0A1628;
+            --navy-light: #0D1B30;
+            --card: #0F1D34;
+            --border: #1A2A4466;
+            --border-hover: #1A5CFF44;
+            --white: #FFFFFF;
+            --ice: #E8F0FE;
+            --frost: #B8D4FF;
+            --steel: #64748B;
+            --green: #00D68F;
+            --font-heading: 'Sora', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--navy);
+            color: var(--ice);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(26, 92, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 92, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, #1A5CFF08 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrap {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* ─── Navigation header ─── */
+        .nav-header {
+            width: 100%;
+            padding: 28px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .nav-logo {
+            height: 36px;
+            width: auto;
+            mix-blend-mode: lighten;
+            filter: drop-shadow(0 0 24px #1A5CFF10);
+            transition: opacity 0.25s;
+        }
+
+        .nav-logo:hover { opacity: 0.8; }
+
+        /* ─── Hero / Feature graphic ─── */
+        .hero {
+            width: 100%;
+            max-width: 900px;
+            padding: 0 24px;
+            margin-bottom: 48px;
+            animation: fadeUp 0.7s ease-out 0.15s both;
+        }
+
+        .feature-graphic {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px #1A5CFF08;
+        }
+
+        /* ─── Main content ─── */
+        main {
+            max-width: 900px;
+            width: 100%;
+            padding: 0 24px 72px;
+        }
+
+        /* ─── Title block ─── */
+        .title-block {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeUp 0.7s ease-out 0.25s both;
+        }
+
+        .title-block h1 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .title-block .subtitle {
+            font-size: 1.1rem;
+            color: var(--frost);
+            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto 18px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--blue-muted);
+            color: var(--frost);
+            border: 1px solid #1A5CFF20;
+        }
+
+        /* ─── Section labels ─── */
+        .section-label {
+            font-family: var(--font-heading);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--blue-glow);
+        }
+
+        /* ─── Screenshot carousel ─── */
+        .screenshots-section {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.35s both;
+        }
+
+        .screenshot-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 8px 4px 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #1A5CFF30 transparent;
+            cursor: grab;
+        }
+
+        .screenshot-track:active { cursor: grabbing; }
+
+        .screenshot-track::-webkit-scrollbar { height: 6px; }
+        .screenshot-track::-webkit-scrollbar-track { background: transparent; }
+        .screenshot-track::-webkit-scrollbar-thumb {
+            background: #1A5CFF30;
+            border-radius: 3px;
+        }
+
+        .phone-frame {
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            width: 180px;
+            background: #1A1A2E;
+            border-radius: 24px;
+            padding: 8px;
+            border: 2px solid #2A2A4A;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.3s ease;
+        }
+
+        .phone-frame:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px #1A5CFF22;
+        }
+
+        .phone-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            display: block;
+        }
+
+        /* ─── Description ─── */
+        .description-section {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.45s both;
+        }
+
+        .description-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px;
+        }
+
+        .description-card p {
+            font-size: 1rem;
+            color: var(--frost);
+            line-height: 1.85;
+        }
+
+        /* ─── Features grid ─── */
+        .features-section {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.55s both;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px 22px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 8px 32px rgba(10, 22, 40, 0.5);
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-card .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: var(--steel);
+            line-height: 1.65;
+        }
+
+        /* Last card spans full width when odd count */
+        .features-grid .feature-card:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            justify-self: center;
+        }
+
+        /* ─── Info section ─── */
+        .info-section {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s ease-out 0.65s both;
+        }
+
+        .info-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .info-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 24px;
+        }
+
+        .info-list li {
+            font-size: 0.9rem;
+            color: var(--frost);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+        }
+
+        /* ─── Back link ─── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--steel);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            margin-bottom: 48px;
+            transition: color 0.25s;
+            animation: fadeUp 0.7s ease-out 0.7s both;
+        }
+
+        .back-link:hover { color: var(--blue); }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            margin-top: auto;
+            padding: 36px 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--steel);
+            width: 100%;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--steel);
+            text-decoration: none;
+            margin: 0 12px;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--frost); }
+        .footer-links { margin-bottom: 12px; }
+
+        /* ─── Animations ─── */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 640px) {
+            .title-block h1 { font-size: 1.8rem; }
+            .title-block .subtitle { font-size: 1rem; }
+            .phone-frame { width: 150px; border-radius: 20px; padding: 6px; }
+            .phone-frame img { border-radius: 14px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .features-grid .feature-card:last-child:nth-child(odd) {
+                max-width: 100%;
+            }
+            .info-list { grid-template-columns: 1fr; }
+            .description-card, .info-card { padding: 24px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-header { padding: 20px 16px; }
+            .nav-logo { height: 28px; }
+            .hero { padding: 0 16px; margin-bottom: 36px; }
+            .feature-graphic { border-radius: 12px; }
+            main { padding: 0 16px 48px; }
+            .phone-frame { width: 140px; border-radius: 18px; padding: 5px; }
+            .phone-frame img { border-radius: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrap">
+        <nav class="nav-header">
+            <a href="index.html">
+                <img src="logo.png" alt="FinPixel Games" class="nav-logo">
+            </a>
+        </nav>
+
+        <div class="hero">
+            <img src="beyond-orbit/feature_graphic.png" alt="Beyond Orbit — Explore. Trade. Fight. Survive." class="feature-graphic">
+        </div>
+
+        <main>
+            <div class="title-block">
+                <h1>Beyond Orbit</h1>
+                <p class="subtitle">Explore an infinite universe. Trade, fight, and survive among the stars.</p>
+                <span class="badge">Coming Soon</span>
+            </div>
+
+            <!-- Screenshots -->
+            <div class="screenshots-section">
+                <div class="section-label">Screenshots</div>
+                <div class="screenshot-track" id="screenshotTrack">
+                    <div class="phone-frame"><img src="beyond-orbit/01_menu.jpg" alt="Main menu" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/02_customize.jpg" alt="Ship customization" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/03_planet_rings.jpg" alt="Exploring planets" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/04_mission.jpg" alt="Missions" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/05_shop.jpg" alt="Trading shop" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/07_combat.jpg" alt="Space combat" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/08_boss.jpg" alt="Boss battle" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/09_laser.jpg" alt="Laser weapon" loading="lazy"></div>
+                    <div class="phone-frame"><img src="beyond-orbit/10_explosion.jpg" alt="Explosion" loading="lazy"></div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="description-section">
+                <div class="section-label">About the Game</div>
+                <div class="description-card">
+                    <p>Blast off into a procedurally generated universe where no two journeys are the same. Pilot your ship through an endless cosmos filled with planets, asteroids, and nebulae — all waiting to be explored.</p>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features-section">
+                <div class="section-label">Features</div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">&#x1F30C;</span>
+                        <h3>Explore the Universe</h3>
+                        <p>Fly freely through a vast, procedurally generated galaxy. Discover unique planets with rings and moons, drift through colorful nebulae, and dodge deadly asteroid fields.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">&#x1F680;</span>
+                        <h3>Upgrade Your Ship</h3>
+                        <p>Choose from 10 unique ships, from nimble corvettes to powerful frigates. Upgrade weapons, shields, engines, and hull. Customize your ship's colors.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">&#x1F4A5;</span>
+                        <h3>4 Powerful Weapons</h3>
+                        <p>Machine Gun, Missiles, Laser Beam, and Planet Destroyer — each with 6 upgrade levels.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">&#x2694;&#xFE0F;</span>
+                        <h3>Fight or Trade</h3>
+                        <p>Battle enemy fighters and epic bosses, or dock with trade ships to buy upgrades. Accept delivery and combat missions for extra credits.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">&#x1F3C6;</span>
+                        <h3>Daily Quests &amp; Achievements</h3>
+                        <p>Complete daily challenges and unlock 27 achievements across combat, exploration, economy, and survival.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional info -->
+            <div class="info-section">
+                <div class="section-label">Details</div>
+                <div class="info-card">
+                    <ul class="info-list">
+                        <li>Procedurally generated infinite universe</li>
+                        <li>No internet required — play anywhere</li>
+                        <li>18 languages supported</li>
+                        <li>Free to play with optional premium upgrade</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back to FinPixel Games
+            </a>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <p>&copy; 2026 FinPixel Games. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        /* ─── Drag-to-scroll for screenshot carousel ─── */
+        const track = document.getElementById('screenshotTrack');
+        let isDragging = false;
+        let startX, scrollLeft;
+
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+            track.style.cursor = 'grabbing';
+        });
+
+        track.addEventListener('mouseleave', () => {
+            isDragging = false;
+            track.style.cursor = 'grab';
+        });
+
+        track.addEventListener('mouseup', () => {
+            isDragging = false;
+            track.style.cursor = 'grab';
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            track.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
