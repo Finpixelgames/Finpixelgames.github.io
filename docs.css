@@ -1,0 +1,172 @@
+/* FinPixel legal & info pages (privacy, terms, account deletion).
+   Siniristi palette (dark), see brand/BRAND_GUIDE.md in the studio repo. */
+
+@font-face {
+    font-family: 'FinPixel Pixel Solid';
+    src: url('/fonts/FinPixelPixelSolid-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+
+:root {
+    --bg: #0B1424;          /* Kaamosyö */
+    --surface: #122038;
+    --ink: #E9EEF5;         /* Huurre */
+    --body: #C9D3E1;
+    --muted: #97A4B9;
+    --line: #22314A;
+    --brand: #FFFFFF;
+    --link: #4C8DFF;        /* Näyttösininen */
+    --accent: #8DB2FF;
+    --pixel: 'FinPixel Pixel Solid', 'Courier New', monospace;
+    --text: 'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;
+    color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--text);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Header: small solid logo ─── */
+header {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 32px 20px 0;
+}
+header a { display: inline-block; color: var(--brand); }
+header a:focus-visible { outline: 3px solid var(--link); outline-offset: 4px; }
+header .mark { display: block; height: 56px; width: auto; }   /* 28 x 2 */
+
+main {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+}
+
+.subtitle {
+    font: 20px/1.2 var(--pixel);
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--brand);
+    margin-bottom: 10px;
+    text-wrap: balance;
+}
+.updated {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 40px;
+}
+h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--brand);
+    margin-top: 36px;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--body);
+    margin-bottom: 12px;
+}
+ul, ol {
+    margin: 8px 0 16px 24px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--body);
+}
+li { margin-bottom: 6px; }
+strong { color: var(--ink); }
+code {
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px;
+    font-size: 0.9rem;
+}
+th, td {
+    padding: 10px 14px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--line);
+}
+th { background: var(--surface); color: var(--accent); font-weight: 700; }
+td { color: var(--body); }
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 32px 0;
+}
+
+.contact-box,
+.step-box,
+.note {
+    background: var(--surface);
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-top: 12px;
+}
+.step-box { margin: 12px 0 20px; }
+.note { margin: 0 0 32px; box-shadow: inset 3px 0 0 var(--link); }
+.warning {
+    background: #2A1414;
+    box-shadow: inset 3px 0 0 #E13039;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin: 0 0 20px;
+    font-size: 0.95rem;
+    color: #FFD3D3;
+}
+.warning p, .warning strong { color: #FFD3D3; }
+
+footer {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 28px 20px 40px;
+    font-size: 0.875rem;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+footer a { color: var(--muted); }
+footer a:hover { color: var(--ink); }
+footer p { width: 100%; color: var(--muted); font-size: 0.875rem; }
+
+@media (max-width: 480px) {
+    header { padding-top: 24px; }
+    main { padding-top: 36px; }
+    h1 { font-size: 1.8rem; }
+    table { display: block; overflow-x: auto; }
+}
