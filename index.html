@@ -155,6 +155,29 @@
         .game h3 { font-size: 22px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; }
         .game p { font-size: 15px; color: var(--muted); line-height: 1.55; }
         .badge { height: 44px; width: auto; align-self: flex-start; margin-top: auto; }
+        .status {
+            align-self: flex-start;
+            font: 13px/1 var(--pixel-solid);
+            letter-spacing: .06em;
+            padding: 6px 8px 5px;
+            border-radius: 3px;
+            background: var(--line);
+            color: var(--muted);
+        }
+        .status.soon { background: var(--link); color: var(--brand); }
+        /* Tuleva peli: leveä esittelykortti julkaistujen yläpuolella */
+        .game.upcoming {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            align-items: center;
+            gap: 24px;
+            background: linear-gradient(120deg, var(--surface) 0%, #16294a 100%);
+            box-shadow: inset 0 0 0 1px var(--line);
+        }
+        .game.upcoming:hover { transform: none; box-shadow: inset 0 0 0 1px var(--line); }
+        .game.upcoming .game-icon { width: 112px; height: 112px; }
+        .game.upcoming .game-body { display: flex; flex-direction: column; gap: 10px; }
+        .game.upcoming h3 { font-size: 26px; }
 
         /* ─── About ─── */
         .about { display: flex; flex-direction: column; gap: 16px; max-width: 62ch; }
@@ -207,6 +230,10 @@
             section { grid-template-columns: 1fr; gap: 20px; }
             .games { grid-template-columns: 1fr; }
         }
+        @media (max-width: 520px) {
+            .game.upcoming { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .game.upcoming .game-icon { width: 80px; height: 80px; }
+        }
         @media (max-width: 640px) {
             .hero { flex-direction: column; align-items: flex-start; gap: 36px; padding-block: 56px 48px; }
             .hero .logo { height: 168px; }       /* 28 x 6 */
@@ -228,11 +255,20 @@
             <section aria-labelledby="games-label">
                 <h2 class="label" id="games-label">Our games</h2>
                 <div class="games">
+                    <div class="game upcoming">
+                        <img src="sandrox-icon.png" alt="" class="game-icon" width="112" height="112">
+                        <div class="game-body">
+                            <span class="status soon">COMING SOON</span>
+                            <h3>SANDROX</h3>
+                            <p>A calm sand toy. Vacuum colorful sand, reveal the layers hidden underneath and fill bottles for orders.</p>
+                        </div>
+                    </div>
                     <a href="https://play.google.com/store/apps/details?id=com.finpixel.beyondorbit" target="_blank" rel="noopener" class="game">
                         <div class="game-top">
                             <img src="beyond-orbit-icon.png" alt="" class="game-icon" width="80" height="80">
                             <h3>Beyond Orbit</h3>
                         </div>
+                        <span class="status">OUT NOW</span>
                         <p>Explore a procedurally generated universe. Trade, fight, and survive in deep space.</p>
                         <img src="google-play-badge.png" alt="Get it on Google Play" class="badge">
                     </a>
@@ -241,6 +277,7 @@
                             <img src="tier-one-icon.png" alt="" class="game-icon" width="80" height="80">
                             <h3>TIER ONE</h3>
                         </div>
+                        <span class="status">OUT NOW</span>
                         <p>Collect fighter cards, build your 3v3 squad, and battle opponents live.</p>
                         <img src="google-play-badge.png" alt="Get it on Google Play" class="badge">
                     </a>
