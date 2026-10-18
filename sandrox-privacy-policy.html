@@ -38,12 +38,13 @@
         <h2>2. Information We Collect</h2>
 
         <h3>2.1 Local save data</h3>
-        <p>SANDROX doesn't require an account or sign-up. Your progress (coins, current shift and sandbox, unlocked items, goals, settings, and your in-game nickname and profile look) is saved as a file on your own device (<code>user://save.json</code>). Your nickname and profile look stay on your device unless you open Social, which creates the optional online profile described in section 2.2. Uninstalling the app deletes the save file permanently.</p>
+        <p>SANDROX doesn't require an account or sign-up. Your progress (coins, current shift and sandbox, unlocked items, goals, settings, and your in-game nickname and profile look) is saved as a file on your own device (<code>user://save.json</code>). When you start the game, it also creates the online profile described in section 2.2, so your nickname, profile look and bottle counts can appear on the leaderboards. Uninstalling the app deletes the save file permanently.</p>
 
-        <h3>2.2 Social: leaderboards, friends and gifts (online profile)</h3>
-        <p>SANDROX creates an online profile only when you open <strong>Social</strong> for the first time. No email, password or sign-up is needed: the game gets a random account ID automatically. The online profile stores your nickname and #tag, the look of your profile (avatar, frame, name color, title and card background), the number of bottles you have shipped (in total and this week), your friend list and friend requests, players you have blocked, your friend request setting, gifts sent between friends, and when you last played online.</p>
-        <p><strong>What other players see:</strong> once you have an online profile, your nickname, #tag, profile look and bottle counts are shown to other players on the leaderboards, in search results by nickname, in friend suggestions and on your player card. Anyone can send you a friend request, which you can accept or decline. You can turn requests off with <strong>Settings &rarr; Friend requests: Nobody</strong>, and block any player from their player card (blocked players can't send you requests or gifts and don't see you in search). There is no chat. Nicknames are checked on the server for inappropriate words.</p>
-        <p>This data is stored with Supabase in the EU (Stockholm, Sweden) and is used only to run leaderboards, friends and gifts. It is never sold or used for advertising.</p>
+        <h3>2.2 Social: leaderboards, teams, friends and gifts (online profile)</h3>
+        <p>SANDROX creates an online profile automatically when you start the game, so every player can take part in the leaderboards. No email, password or sign-up is needed: the game gets a random account ID automatically. The online profile stores your nickname and #tag, the look of your profile (avatar, frame, name color, title and card background), the number of bottles you have shipped (in total and this week), your team and team invites, your friend list and friend requests, players you have blocked, your friend request and leaderboard settings, reports you have made about offensive names, gifts sent between friends, and when you last played online.</p>
+        <p><strong>Teams:</strong> you can create a team (name, emblem from a fixed set, open or invite only) or join one. A team's score is the total of its members' bottles. Team members, their nicknames, profile look and bottle counts are visible to everyone who views the team. Team names are checked for inappropriate words, and names reported by several players are removed automatically.</p>
+        <p><strong>What other players see:</strong> once you have an online profile, your nickname, #tag, profile look and bottle counts are shown to other players on the leaderboards, in search results by nickname, in friend suggestions and on your player card. Anyone can send you a friend request, which you can accept or decline. You can hide yourself from the leaderboards with <strong>Settings &rarr; Show me on leaderboards: Off</strong>, turn requests off with <strong>Settings &rarr; Friend requests: Nobody</strong>, and block or report any player from their player card (blocked players can't send you requests or gifts and don't see you in search). There is no chat. Nicknames are checked on the server for inappropriate words.</p>
+        <p>This data is stored with Supabase in the EU (Stockholm, Sweden) and is used only to run leaderboards, teams, friends and gifts. It is never sold or used for advertising. If you delete your online profile, the game doesn't create a new one automatically: a new profile is created only if you open Social again.</p>
         <p>You can delete your online profile anytime in the game: <strong>Settings &rarr; Delete online profile</strong>. See also <a href="/sandrox-delete-account.html">how to delete your online profile</a>.</p>
 
         <h3>2.3 Notifications</h3>
@@ -76,8 +77,8 @@
             </tr>
             <tr>
                 <td>Supabase (EU, Stockholm)</td>
-                <td>Leaderboards, friends and gifts (online profile)</td>
-                <td>Random account ID, nickname and #tag, profile look, bottles shipped, friend list, blocked players, gifts</td>
+                <td>Leaderboards, teams, friends and gifts (online profile)</td>
+                <td>Random account ID, nickname and #tag, profile look, bottles shipped, team, friend list, blocked players, name reports, gifts</td>
             </tr>
             <tr>
                 <td>Supabase (EU data center)</td>
@@ -95,14 +96,14 @@
         <hr class="divider">
 
         <h2>4. Children</h2>
-        <p>SANDROX is a general audience game and is not directed at children under 13. We don't knowingly collect personal information from children. The optional online profile (section 2.2) contains only a nickname chosen by the player and no contact details.</p>
+        <p>SANDROX is a general audience game and is not directed at children under 13. We don't knowingly collect personal information from children. The online profile (section 2.2) contains only a nickname chosen by the player and no contact details, and there is no chat.</p>
 
         <hr class="divider">
 
         <h2>5. Your Rights (GDPR)</h2>
         <p>We're based in Finland (EU). You can access, correct and delete your data:</p>
         <ul>
-            <li><strong>Online profile (leaderboards, friends and gifts)</strong>: change your nickname and profile look in the game, turn friend requests off, block players, or delete the whole online profile including your leaderboard entries in <strong>Settings &rarr; Delete online profile</strong> (instant), or by email (section 7)</li>
+            <li><strong>Online profile (leaderboards, teams, friends and gifts)</strong>: change your nickname and profile look in the game, hide yourself from the leaderboards, leave your team, turn friend requests off, block players, or delete the whole online profile including your team membership and leaderboard entries in <strong>Settings &rarr; Delete online profile</strong> (instant), or by email (section 7)</li>
             <li><strong>Local save data</strong>: uninstalling the app or clearing its data deletes it immediately and permanently</li>
             <li><strong>Advertising ID and ad personalization</strong>: manage them from your device's system settings</li>
             <li><strong>Notifications</strong>: turn them off in the game's settings or your device's system settings</li>
@@ -114,7 +115,7 @@
         <hr class="divider">
 
         <h2>6. Data Retention</h2>
-        <p>Local save data stays on your device until you uninstall the app or clear its data. The online profile, its bottle counts and your block list are kept until you delete it; unclaimed gifts are deleted after 7 days. Usage statistics (section 2.6) are deleted automatically after 14 months. AdMob and Play Billing data is retained according to Google's own policies.</p>
+        <p>Local save data stays on your device until you uninstall the app or clear its data. The online profile, its bottle counts, team membership and your block list are kept until you delete it (a team is removed when its last member leaves); unclaimed gifts are deleted after 7 days. Usage statistics (section 2.6) are deleted automatically after 14 months. AdMob and Play Billing data is retained according to Google's own policies.</p>
 
         <hr class="divider">
 
