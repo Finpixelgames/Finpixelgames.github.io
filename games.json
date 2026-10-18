@@ -1,0 +1,41 @@
+{
+  "_ohje": "Pelilista nettisivulle. Lisää uusi peli tähän ja aja: python build_games.py. status: out (julkaistu), test (suljettu/avoin testi), soon (tulossa). released = julkaisupäivä YYYY-MM-DD (out-peleille): 30 päivää julkaisusta kortissa näkyy NEW, OUT NOW ja peli nousee kärkeen. Järjestys: uudet julkaisut, testit, tulossa olevat, sitten muut uusin ensin.",
+  "games": [
+    {
+      "id": "sandrox",
+      "name": "SANDROX",
+      "icon": "sandrox-icon.png",
+      "status": "out",
+      "released": "2026-10-17",
+      "desc": "A calm sand toy. Vacuum colorful sand, reveal the layers hidden underneath and fill bottles for orders.",
+      "url": "https://play.google.com/store/apps/details?id=com.finpixel.sandrox"
+    },
+    {
+      "id": "hockey-career",
+      "name": "Your Hockey Career",
+      "icon": "your-hockey-career-icon.png",
+      "status": "test",
+      "desc": "Play real time 5v5 hockey yourself and live your whole career, from a 16 year old rookie to a legend. Help test it on Android before launch.",
+      "url": "/hockey",
+      "cta": "Join the closed test"
+    },
+    {
+      "id": "beyond-orbit",
+      "name": "Beyond Orbit",
+      "icon": "beyond-orbit-icon.png",
+      "status": "out",
+      "released": "2026-06-19",
+      "desc": "Explore a procedurally generated universe. Trade, fight, and survive in deep space.",
+      "url": "https://play.google.com/store/apps/details?id=com.finpixel.beyondorbit"
+    },
+    {
+      "id": "tier-one",
+      "name": "TIER ONE",
+      "icon": "tier-one-icon.png",
+      "status": "out",
+      "released": "2026-09-05",
+      "desc": "Collect fighter cards, build your 3v3 squad, and battle opponents live.",
+      "url": "https://play.google.com/store/apps/details?id=com.finpixel.tierone"
+    }
+  ]
+}
