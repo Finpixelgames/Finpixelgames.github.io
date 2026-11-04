@@ -28,7 +28,7 @@
     <main>
         <p class="subtitle">SANDROX</p>
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: October 28, 2026</p>
+        <p class="updated">Last updated: November 4, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>SANDROX is made by FinPixel Games, a Finnish game studio. This Privacy Policy explains what information SANDROX collects, why, and how you can control it.</p>
@@ -38,10 +38,10 @@
         <h2>2. Information We Collect</h2>
 
         <h3>2.1 Local save data</h3>
-        <p>SANDROX doesn't require an account or sign-up. Your progress (coins, current shift and sandbox, unlocked items, goals, settings, and your in-game nickname and profile look) is saved as a file on your own device (<code>user://save.json</code>). When you start the game, it also creates the online profile described in section 2.2, so your nickname, profile look and bottle counts can appear on the leaderboards. Uninstalling the app deletes the save file permanently.</p>
+        <p>SANDROX doesn't require an account or sign-up. Your progress (coins, current shift and sandbox, unlocked items, goals, settings, and your in-game nickname and profile look) is saved as a file on your own device (<code>user://save.json</code>). When you start the game, it also creates the online profile described in section 2.2, so your nickname, profile look and bottle counts can appear on the leaderboards. So that you can continue after reinstalling the game or on a new phone, the save file is also included in your device's Android backup (if backup is turned on in your device settings) and, if you're signed in to Play Games, copied to Play Games saved games (section 2.7). Uninstalling the app deletes the file from your device.</p>
 
         <h3>2.2 Social: leaderboards, teams, friends and gifts (online profile)</h3>
-        <p>SANDROX creates an online profile automatically when you start the game, so every player can take part in the leaderboards. No email, password or sign-up is needed: the game gets a random account ID automatically. The online profile stores your nickname and #tag, the look of your profile (avatar, frame, name color, title and card background), the number of bottles you have shipped (in total and this week), your team and team invites, your friend list and friend requests, players you have blocked, your friend request and leaderboard settings, reports you have made about offensive names, gifts sent between friends, and when you last played online.</p>
+        <p>SANDROX creates an online profile automatically when you start the game, so every player can take part in the leaderboards. No email, password or sign-up is needed: the game gets a random account ID automatically. So that you keep your online profile when you reinstall the game or move to a new phone, the game also creates a random recovery key for the account. Only a one-way hash of the key is stored on the server; the key itself is kept with your save data (on your device, in your Android backup and in Play Games saved games). When a new installation uses the key, the online profile moves to it and the old account ID is deleted. Recovery attempts are logged with the random account ID and time, and deleted after 30 days. The online profile stores your nickname and #tag, the look of your profile (avatar, frame, name color, title and card background), the number of bottles you have shipped (in total and this week), your team and team invites, your friend list and friend requests, players you have blocked, your friend request and leaderboard settings, reports you have made about offensive names, gifts sent between friends, and when you last played online.</p>
         <p><strong>Teams:</strong> you can create a team (name, emblem from a fixed set, open or invite only) or join one. A team's score is the total of its members' bottles. Team members, their nicknames, profile look and bottle counts are visible to everyone who views the team. Team names are checked for inappropriate words, and names reported by several players are removed automatically.</p>
         <p><strong>Weekly top 3:</strong> when a week ends (Monday 00:00 UTC), the three players with the most bottles on the This Week leaderboard receive exclusive profile items. For this, the online profile also stores the weeks you finished in the top 3 (week, place and bottle count) and whether you have seen the reward. Your trophy count (gold, silver, bronze) is shown on your player card. Players hidden from the leaderboards don't take part.</p>
         <p><strong>What other players see:</strong> once you have an online profile, your nickname, #tag, profile look and bottle counts are shown to other players on the leaderboards, in search results by nickname, in friend suggestions and on your player card. Anyone can send you a friend request, which you can accept or decline. You can hide yourself from the leaderboards with <strong>Settings &rarr; Show me on leaderboards: Off</strong>, turn requests off with <strong>Settings &rarr; Friend requests: Nobody</strong>, and block or report any player from their player card (blocked players can't send you requests or gifts and don't see you in search). There is no chat. Nicknames are checked on the server for inappropriate words.</p>
@@ -68,6 +68,7 @@
 
         <h3>2.7 Google Play Games Services</h3>
         <p>If you're signed in to Play Games on your device, SANDROX uses it for achievements and all-time leaderboards (bottles shipped, perfect bottles and best shift). The game reports your achievement progress and these totals from your own save data. This involves your Play Games account's sign-in state, your Play Games gamer name and avatar, your scores and your achievement progress. Your gamer name, avatar and scores are shown to other players on the Play Games leaderboards. We don't see or store this ourselves. It's held by Google under your own Google account, and you can control your Play Games profile visibility in your Play Games settings. These Play Games leaderboards are separate from the in-game leaderboards in section 2.2.</p>
+        <p><strong>Saved games:</strong> SANDROX also stores a copy of your save data (section 2.1) together with your online profile's random account ID and recovery key (section 2.2) in Play Games saved games, under your own Google account. When you install the game again or on a new device, the game can then offer to restore your progress and online profile. We don't see this copy ourselves. You can delete saved games in your Google Account's Play Games settings.</p>
 
         <hr class="divider">
 
@@ -92,7 +93,12 @@
             <tr>
                 <td>Google Play Games Services</td>
                 <td>Achievements and all-time leaderboards (section 2.7)</td>
-                <td>Play Games sign-in state, gamer name and avatar, scores, achievement progress</td>
+                <td>Play Games sign-in state, gamer name and avatar, scores, achievement progress, saved game (copy of your save data and recovery key)</td>
+            </tr>
+            <tr>
+                <td>Android backup (Google)</td>
+                <td>Restoring your progress after a reinstall or on a new phone (section 2.1), if backup is on in your device settings</td>
+                <td>The game's save files on your device</td>
             </tr>
             <tr>
                 <td>Google Play Billing</td>
@@ -113,7 +119,7 @@
         <p>We're based in Finland (EU). You can access, correct and delete your data:</p>
         <ul>
             <li><strong>Online profile (leaderboards, teams, friends and gifts)</strong>: change your nickname and profile look in the game, hide yourself from the leaderboards, leave your team, turn friend requests off, block players, or delete the whole online profile including your team membership and leaderboard entries in <strong>Settings &rarr; Delete online profile</strong> (instant), or by email (section 7)</li>
-            <li><strong>Local save data</strong>: uninstalling the app or clearing its data deletes it immediately and permanently</li>
+            <li><strong>Local save data</strong>: uninstalling the app or clearing its data deletes it from your device; the copies in your Android backup and Play Games saved games can be deleted in your Google Account settings</li>
             <li><strong>Advertising ID and ad personalization</strong>: manage them from your device's system settings</li>
             <li><strong>Notifications</strong>: turn them off in the game's settings or your device's system settings</li>
             <li><strong>Purchase history</strong>: visible in your Google Play account</li>
@@ -125,7 +131,7 @@
         <hr class="divider">
 
         <h2>6. Data Retention</h2>
-        <p>Local save data stays on your device until you uninstall the app or clear its data. The online profile, its bottle counts, weekly top 3 places, team membership and your block list are kept until you delete it (a team is removed when its last member leaves); unclaimed gifts are deleted after 7 days. Usage statistics (section 2.6) are deleted automatically after 14 months. Play Games, AdMob and Play Billing data is retained according to Google's own policies, under your Google account.</p>
+        <p>Local save data stays on your device until you uninstall the app or clear its data. The online profile, its bottle counts, weekly top 3 places, team membership and your block list are kept until you delete it (a team is removed when its last member leaves); unclaimed gifts are deleted after 7 days. The recovery key's hash is deleted together with the online profile, and the log of recovery attempts after 30 days. Usage statistics (section 2.6) are deleted automatically after 14 months. Play Games, AdMob and Play Billing data is retained according to Google's own policies, under your Google account.</p>
 
         <hr class="divider">
 
